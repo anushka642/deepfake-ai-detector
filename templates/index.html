@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deepfake AI Detector</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        .navbar {
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.08);
+            padding: 35px;
+            border-radius: 20px;
+            width: 500px;
+            backdrop-filter: blur(15px);
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(255,255,255,0.4);
+            border-radius: 15px;
+            width: 100%;
+            height: 320px; /* fixed square ratio */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .upload-area:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .upload-area img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        button {
+            margin-top: 20px;
+            background: #ff416c;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .result-card {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .confidence-bar {
+            margin-top: 10px;
+            height: 12px;
+            width: 100%;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+
+        .confidence-fill {
+            height: 12px;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>Deepfake AI Detector</h2>
+</div>
+
+<div class="container">
+    <div class="card">
+
+        <p>Upload an image to analyze whether it is Real or AI-Generated.</p>
+
+        <label class="upload-area" id="uploadArea">
+            <span id="uploadText">Drag & Drop or Click to Upload</span>
+            <input type="file" id="fileInput">
+        </label>
+
+        <button onclick="uploadImage()">Analyze Image</button>
+
+        <div class="loading" id="loading">
+            <p>Analyzing...</p>
+        </div>
+
+        <div class="result-card" id="resultCard">
+            <h3 id="resultText"></h3>
+            <p id="confidenceText"></p>
+
+            <div class="confidence-bar">
+                <div class="confidence-fill" id="confidenceFill"></div>
+            </div>
+
+            <div style="margin-top:15px; font-size:14px; opacity:0.85;">
+                <p><b>Model Analysis:</b></p>
+                <p>• Transfer Learning (ResNet18)</p>
+                <p>• Texture & lighting consistency evaluated</p>
+                <p>• Binary threshold = 0.5</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    Developed for Minor Project | Deep Learning Based Face Authenticity Detection
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
